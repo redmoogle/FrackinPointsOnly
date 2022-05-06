@@ -1,10 +1,11 @@
 import os
-import json5 as json
+import json5 # for comment parsing
+import json
 
 files = os.listdir("./zb/researchTree")
 for file in files:
     with open(f"./zb/researchTree/{file}", 'r') as config:
-        jsonobj = json.load(config)
+        jsonobj = json5.load(config)
         researchTree = jsonobj["researchTree"]
         for catagory in researchTree:
             researchCatagory = catagory
@@ -23,4 +24,9 @@ for file in files:
 
     with open(f"./zb/researchTree/{file}", 'w+') as config:
         jsonobj["researchTree"] = researchTree
-        json.dump(jsonobj, config, indent=4)
+        json5.dump(jsonobj, config, indent=4)
+
+    with open(f"./zb/researchTree/{file}", 'r') as config:
+        jsonobj = json.load(config)
+        with open(f"./zb/researchTree/{file}", 'w+') as config2:
+            json.dump(jsonobj, config2)
